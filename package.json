@@ -1,0 +1,40 @@
+{
+  "name": "cryptocurrency-charting-tool",
+  "version": "1.0.0",
+  "description": "A single page app tracking the historical price data for Bitcoin",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production",
+    "react-dev": "webpack -d --watch --hot",
+    "server-dev": "nodemon ./server/index.js"
+  },
+  "author": "John Lee",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.19.0",
+    "chart.js": "^2.9.3",
+    "express": "^4.17.1",
+    "moment": "^2.24.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0",
+    "react": "^16.12.0",
+    "react-chartjs-2": "^2.9.0",
+    "react-dom": "^16.12.0",
+    "sequelize": "^5.21.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  }
+}
