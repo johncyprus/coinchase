@@ -131,7 +131,7 @@ class Graph extends React.Component {
                     }
                 },
                 layout: {
-                    padding: 100
+                    padding: {left: 50, right: 50, top: 0, bottom: 0}
                 }
             }
 
@@ -150,6 +150,7 @@ class Graph extends React.Component {
         // console.log('TESTING GRAPH STATE:', this.state);
         return (
             <div>
+                <p className="coindesk-disclaimer">Powered by CoinDesk</p>
                 {this.renderGraph()}
             </div>
         )

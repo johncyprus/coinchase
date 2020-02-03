@@ -3,9 +3,11 @@ import Header from './Header';
 import CurrentPrice from './CurrentPrice';
 import Axios from 'axios';
 import Graph from './Graph';
-import CoinDesk from './CoinDesk';
 import TimeFrame from './TimeFrame';
-import CoinDisplay from './CoinDisplay';
+import CoinTabs from './CoinTabs';
+
+import bulma from 'bulma/css/bulma.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 
 class App extends React.Component {
@@ -30,9 +32,7 @@ class App extends React.Component {
             params: {coin: coin}
         })
             .then(response => {
-                // console.log('TESTING HISTORY FETCH:', response.data)
                 this.setState({coin: coin, history: response.data, timeFrame: timeFrame})
-                console.log('WHAT IS THE COIN:', this.state.coin);
             })
             .catch(error => {
                 console.log('Error getting price history:', error);
@@ -40,7 +40,6 @@ class App extends React.Component {
     }
 
     cacheAltCoinData = (altCoin) => {
-        // console.log('TESTING ALTCOIN:', altCoin);
         Axios.post(`/${altCoin}/year`, {coin: `${altCoin}`})
     }
 
@@ -54,23 +53,26 @@ class App extends React.Component {
 
 
     render() {
-        // console.log('TESTING APP STATE:', this.state);
+        const {coin, history, timeFrame} = this.state;
+
         return (
-            <div>
-                <Header />
+            <div className="app-container">
+                <Header/>
 
-                <div>
-                    <CoinDisplay selectCoin={this.selectCoin}/>
-                    <CurrentPrice currentCoin={this.state.coin}/>
-                </div>
-                <div>
-                    <TimeFrame selectTimeFrame={this.selectTimeFrame}/>
-                </div>
-                <div>
-                    <Graph history={this.state.history} timeFrame={this.state.timeFrame} currentCoin={this.state.coin}/>
+                <div className="coin-container">
+                    <CoinTabs selectCoin={this.selectCoin} />
                 </div>
 
-                <CoinDesk />
+                <div className="graph-header">
+                    <CurrentPrice currentCoin={coin} />
+                    <TimeFrame selectTimeFrame={this.selectTimeFrame} />
+                </div>
+                
+                <Graph
+                    currentCoin={coin}
+                    history={history}
+                    timeFrame={timeFrame}
+                />
             </div>
         )
     }

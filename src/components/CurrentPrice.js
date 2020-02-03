@@ -41,21 +41,8 @@ class CurrentPrice extends React.Component {
             })
     }
 
-    handleCurrencySwitch = (e) => {
-        this.setState({currency: e.target.value})
-    }
-
-    renderCurrencySymbol = () => {
-        if (this.state.currency === 'USD') {
-            return '$';
-        }
-        if (this.state.currency === 'EUR') {
-            return '€';
-        }
-        if (this.state.currency === 'GBP') {
-            return '£';
-        }
-
+    handleCurrencySwitch = (currency) => {
+        this.setState({currency: currency})
     }
 
     renderCurrentPrice = () => {
@@ -66,26 +53,54 @@ class CurrentPrice extends React.Component {
             let price;
 
             if (this.props.currentCoin === 'btc') {
-                console.log('TESTING THIS CONDITIONAL:', this.props.currentCoin);
-                console.log('TESTING THE STATE TOO:', this.props.currentCoin);
-                price = (this.state.currentPrice.bpi[currency].rate_float).toFixed(2);
+                if (this.state.currency === 'USD') {
+                    price = new Intl.NumberFormat("en-US", {currency: "USD", style: "currency"}).format((this.state.currentPrice.bpi[currency].rate_float).toFixed(2));
+                } else if (this.state.currency === 'GBP') {
+                    price = new Intl.NumberFormat("en-GB", {currency: "GBP", style: "currency"}).format((this.state.currentPrice.bpi[currency].rate_float).toFixed(2));
+                } else if (this.state.currency === 'EUR') {
+                    price = new Intl.NumberFormat("de-DE", {currency: "EUR", style: "currency"}).format((this.state.currentPrice.bpi[currency].rate_float).toFixed(2));
+                }
             } else {
-                console.log('TESTING THIS CONDITIONAL:', this.props.currentCoin);
-                console.log('TESTING THE STATE TOO:', this.props.currentCoin);
-                price = this.state.currentPrice[currency];
+                if (this.state.currency === 'USD') {
+                    price = new Intl.NumberFormat("en-US", {currency: "USD", style: "currency"}).format(this.state.currentPrice[currency]);
+                } else if (this.state.currency === 'GBP') {
+                    price = new Intl.NumberFormat("en-GB", {currency: "GBP", style: "currency"}).format(this.state.currentPrice[currency]);
+                } else if (this.state.currency === 'EUR') {
+                    price = new Intl.NumberFormat("de-DE", {currency: "EUR", style: "currency"}).format(this.state.currentPrice[currency]);
+                }
             }
             
-
             return (
-                <div>
-                    <div>
-                        <h4>{this.renderCurrencySymbol()}{price}</h4>
-                    </div>
+                <div className="current-price-container">
+                    <div className="current-price-box">
+                        <h4 className="current-price">{price}</h4>
+                            <div className="field has-addons">
+                                <p className="control">
+                                    <button className="button" onClick={() => {this.handleCurrencySwitch("USD")}} value="USD">
+                                    <span className="icon is-small">
+                                        <i className="fas fa-dollar-sign"></i>
+                                    </span>
+                                    <span>USD</span>
+                                    </button>
+                                </p>
+                                <p className="control">
+                                    <button className="button" onClick={() => {this.handleCurrencySwitch("GBP")}} value="GBP">
+                                    <span className="icon is-small">
+                                        <i className="fas fa-pound-sign"></i>
+                                    </span>
+                                    <span>GBP</span>
+                                    </button>
+                                </p>
+                                <p className="control">
+                                    <button className="button" onClick={() => {this.handleCurrencySwitch("EUR")}} value="EUR">
+                                    <span className="icon is-small">
+                                        <i className="fas fa-euro-sign"></i>
+                                    </span>
+                                    <span>EUR</span>
+                                    </button>
+                                </p>
+                            </div>
 
-                    <div>
-                        <button onClick={this.handleCurrencySwitch} value="USD">USD</button>
-                        <button onClick={this.handleCurrencySwitch} value="GBP">GBP</button>
-                        <button onClick={this.handleCurrencySwitch} value="EUR">EUR</button>
                     </div>
                 </div>
             )
@@ -93,16 +108,7 @@ class CurrentPrice extends React.Component {
     }
 
     render() {
-        const {chartName} = this.state.currentPrice;
-        console.log('TESTING CP STATE:', this.state)
-        // console.log('TESTING THIS TIME:', moment(1579651200).format('ll'))
-        return (
-            <div>
-                <h4>{chartName} Price:</h4>
-                {this.state.currentPrice ? this.renderCurrentPrice() : null}
-                
-            </div>
-        )
+        return this.state.currentPrice ? this.renderCurrentPrice() : null;
     }
 }
 
