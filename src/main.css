@@ -6,7 +6,6 @@
 .header-container {
     display: flex;
     align-items: flex-end;
-    /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
 }
 
 .title {
@@ -61,4 +60,9 @@
 .coindesk-disclaimer {
     padding: 0 50px;
     font-size: 14px;
+}
+
+.icon.is-medium {
+    height: 1.75rem !important;
+    width: 1.75rem !important;
 }

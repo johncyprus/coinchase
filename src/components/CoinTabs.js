@@ -14,9 +14,9 @@ class CoinDisplay extends React.Component {
 
     handleCoinSelect = (e) => {
         const value = e.target.getAttribute("value");
-        const name = e.target.getAttribute("name");
-
-        this.setState({ activeTab: value });
+        this.setState({ 
+            activeTab: value 
+        });
         this.props.selectCoin(value);
     }
 
@@ -57,7 +57,6 @@ class CoinDisplay extends React.Component {
                         </li>
                     </ul>
                 </div>
-
             </>
         )
     }

@@ -9,8 +9,7 @@ class CurrentPrice extends React.Component {
             currentPrice: {},
             currency: 'USD',
         }
-
-        // setInterval(this.getCurrentPrice, 10000);
+        setInterval(this.getCurrentPrice, 10000);
     }
 
     componentDidMount() {
@@ -33,16 +32,16 @@ class CurrentPrice extends React.Component {
         Axios.get(`/${coin}/currentPrice`, {
             params: {coin: coin}
         })
-            .then(response => {
-                this.setState({currentPrice: response.data, coin: coin})
-            })
-            .catch(error => {
-                console.log('Error loading current price to Client:', error);
-            })
+        .then(response => {
+            this.setState({currentPrice: response.data, coin: coin});
+        })
+        .catch(error => {
+            console.log('Error loading current price to Client:', error);
+        })
     }
 
     handleCurrencySwitch = (currency) => {
-        this.setState({currency: currency})
+        this.setState({currency: currency});
     }
 
     renderCurrentPrice = () => {
@@ -51,7 +50,6 @@ class CurrentPrice extends React.Component {
         } else {
             let currency = this.state.currency;
             let price;
-
             if (this.props.currentCoin === 'btc') {
                 if (this.state.currency === 'USD') {
                     price = new Intl.NumberFormat("en-US", {currency: "USD", style: "currency"}).format((this.state.currentPrice.bpi[currency].rate_float).toFixed(2));
@@ -100,7 +98,6 @@ class CurrentPrice extends React.Component {
                                     </button>
                                 </p>
                             </div>
-
                     </div>
                 </div>
             )

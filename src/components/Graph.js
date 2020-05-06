@@ -16,8 +16,6 @@ class Graph extends React.Component {
         // This allows historical data to load without looping infinitely.
         if (this.props.history !== prevProps.history && this.state.priceHistory === null) {
             this.parseHistoryData();
-            // console.log('WHAT IS PREV PROP:', prevProps);
-            // console.log('IS CUR PROP WORKING:', this.props.history)
         }
         // This allows graph to change based on timeframe. 
         if (this.state.priceHistory !== null && this.props.timeFrame !== this.state.timeFrame) {
@@ -25,11 +23,8 @@ class Graph extends React.Component {
         }
         // This allows graph to change what coin data is being rendered.
         if (this.props.currentCoin !== this.state.coin) {
-            // this.setState({coin: this.props.currentCoin});
-            // console.log('IS THIS TRIGGERING:', this.props.history);
             this.parseHistoryData();
         }
-        
     }
 
     parseHistoryData = () => {
@@ -37,24 +32,22 @@ class Graph extends React.Component {
         if (this.props.currentCoin === 'btc') {
             spread = Object.entries(this.props.history.bpi);
         } else {
-            spread = Object.entries(this.props.history);    // Altcoins history does not have a 'bpi' property
+            // Altcoins history does not have a 'bpi' property
+            spread = Object.entries(this.props.history);    
         }
 
-        // console.log('TESTING PARSE 30:', this.props.history);
-
         const dates = spread.map(date => {
-            return moment(date[0]).format('ll')
-        })
+            return moment(date[0]).format('ll');
+        });
         const priceHistory = spread.map(date => {
             return date[1].toFixed(2);
-        })
+        });
 
         this.setState({
             coin: this.props.currentCoin,
             timeFrame: this.props.timeFrame,
             dates: dates,
             priceHistory: priceHistory
-            
         });
     }
 
@@ -63,13 +56,13 @@ class Graph extends React.Component {
             btc: 'BTC Price History in USD',
             ltc: 'LTC Price History in USD',
             eth: 'ETH Price History in USD'
-        }
+        };
 
         const fillColor = {
             btc: 'rgba(248, 210, 57, 0.2)',
             ltc: 'rgba(191, 191, 191, 0.2)',
             eth: 'rgba(82, 218, 116, 0.2)'
-        }
+        };
 
         if (this.state.priceHistory === null) {
             return <div>Loading Graph...</div>
@@ -89,7 +82,7 @@ class Graph extends React.Component {
                     ],
                     borderWidth: 1
                 }]
-            }
+            };
 
             let options = {
                 animation: {
@@ -97,7 +90,6 @@ class Graph extends React.Component {
                 },
                 scales: {
                     xAxes: [{
-
                         ticks: {
                             source: 'data',
                             autoSkip: true,
@@ -140,14 +132,12 @@ class Graph extends React.Component {
                     data={graphData}
                     width={100}
                     height={50}
-                    options={options}
-                />
+                    options={options} />
             )
         }
     }
 
     render() {
-        // console.log('TESTING GRAPH STATE:', this.state);
         return (
             <div>
                 <p className="coindesk-disclaimer">Powered by CoinDesk</p>
@@ -158,37 +148,3 @@ class Graph extends React.Component {
 }
 
 export default Graph;
-
-// *** THIS BELONGS OVER TICKS PROP IN X AXES
-// type: 'time',
-// distribution: 'series',
-
-
-// *** THIS BELONGS UNDER TICKS PROP IN X AXES
-// ,
-//                         afterBuildTicks: function(scale, ticks) {
-//                             var majorUnit = scale._majorUnit;
-//                             var firstTick = ticks[0];
-//                             var i, ilen, val, tick, currMajor, lastMajor;
-            
-//                             val = moment(ticks[0].value);
-//                             if ((majorUnit === 'minute' && val.second() === 0)
-//                                     || (majorUnit === 'hour' && val.minute() === 0)
-//                                     || (majorUnit === 'day' && val.hour() === 9)
-//                                     || (majorUnit === 'month' && val.date() <= 3 && val.isoWeekday() === 1)
-//                                     || (majorUnit === 'year' && val.month() === 0)) {
-//                                 firstTick.major = true;
-//                             } else {
-//                                 firstTick.major = false;
-//                             }
-//                             lastMajor = val.get(majorUnit);
-            
-//                             for (i = 1, ilen = ticks.length; i < ilen; i++) {
-//                                 tick = ticks[i];
-//                                 val = moment(tick.value);
-//                                 currMajor = val.get(majorUnit);
-//                                 tick.major = currMajor !== lastMajor;
-//                                 lastMajor = currMajor;
-//                             }
-//                             return ticks;
-//                         }

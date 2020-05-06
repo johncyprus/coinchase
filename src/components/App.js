@@ -22,25 +22,26 @@ class App extends React.Component {
 
     componentDidMount() {
         this.getHistoricalData(this.state.timeFrame, 'btc');
+
+        // This is done to store altcoin data once on app load. 
         // this.cacheAltCoinData('ltc');
         // this.cacheAltCoinData('eth');
     }
 
     getHistoricalData = (timeFrame, coin) => {
-
         Axios.get(`/${coin}/${timeFrame}`, {
             params: {coin: coin}
         })
-            .then(response => {
-                this.setState({coin: coin, history: response.data, timeFrame: timeFrame})
-            })
-            .catch(error => {
-                console.log('Error getting price history:', error);
-            })
+        .then(response => {
+            this.setState({coin: coin, history: response.data, timeFrame: timeFrame});
+        })
+        .catch(error => {
+            console.log('Error getting price history:', error);
+        });
     }
 
     cacheAltCoinData = (altCoin) => {
-        Axios.post(`/${altCoin}/year`, {coin: `${altCoin}`})
+        Axios.post(`/${altCoin}/year`, {coin: `${altCoin}`});
     }
 
     selectTimeFrame = (time)=> {
@@ -51,14 +52,11 @@ class App extends React.Component {
         this.getHistoricalData(this.state.timeFrame, coin);
     }
 
-
     render() {
         const {coin, history, timeFrame} = this.state;
-
         return (
             <div className="app-container">
                 <Header/>
-
                 <div className="coin-container">
                     <CoinTabs selectCoin={this.selectCoin} />
                 </div>
@@ -71,8 +69,7 @@ class App extends React.Component {
                 <Graph
                     currentCoin={coin}
                     history={history}
-                    timeFrame={timeFrame}
-                />
+                    timeFrame={timeFrame}/>
             </div>
         )
     }
