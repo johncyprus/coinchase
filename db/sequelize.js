@@ -72,8 +72,8 @@ const CurrentPrices = sequelize.define('CurrentPrices', {
 });
 
 CurrentPrices.sync({force: false});
-// LTC.sync({force: true});
-// ETH.sync({force: true});
+LTC.sync({force: false});
+ETH.sync({force: false});
 
 module.exports.LTC = LTC;
 module.exports.ETH = ETH;
