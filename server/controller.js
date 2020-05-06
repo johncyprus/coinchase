@@ -3,13 +3,10 @@ const moment = require('moment');
 
 module.exports = {
     getBitcoinYearHistory: (req, res) => {
-        // console.log('TESTING DATE:', moment().toISOString().substring(0, 10));
-        // console.log('TESTING 6 MONTHS AGO:', moment().subtract(6, 'months').toISOString().substring(0, 10))
-
         const start = moment().subtract(1, 'years').toISOString().substring(0, 10);
         const end = moment().toISOString().substring(0, 10);
         
-        let url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${start}&end=${end}`
+        let url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${start}&end=${end}`;
         axios.get(url)
             .then(response => {
                 let btcYearData = response.data;
@@ -17,16 +14,14 @@ module.exports = {
             })
             .catch(error => {
                 console.log('Error fetching 6months data:', error);
-            })
+                res.sendStatus(500);
+            });
     },
     getBitcoin6MonthsHistory: (req, res) => {
-        // console.log('TESTING DATE:', moment().toISOString().substring(0, 10));
-        // console.log('TESTING 6 MONTHS AGO:', moment().subtract(6, 'months').toISOString().substring(0, 10))
-
         const start = moment().subtract(6, 'months').toISOString().substring(0, 10);
         const end = moment().toISOString().substring(0, 10);
         
-        let url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${start}&end=${end}`
+        let url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${start}&end=${end}`;
         axios.get(url)
             .then(response => {
                 let btc6MonthsData = response.data;
@@ -34,10 +29,10 @@ module.exports = {
             })
             .catch(error => {
                 console.log('Error fetching 6months data:', error);
-            })
+                res.sendStatus(500);
+            });
     },
     getBitcoinMonthHistory: (req, res) => {
-        // console.log('TESTING CONTROLLER');
         let url = `https://api.coindesk.com/v1/bpi/historical/close.json`;
         axios.get(url)
             .then(response => {
@@ -46,16 +41,14 @@ module.exports = {
             })
             .catch(error => {
                 console.log('Error fetching BTC History:', error);
+                res.sendStatus(500);
             })
     },
     getBitcoinWeekHistory: (req, res) => {
-        // console.log('TESTING DATE:', moment().toISOString().substring(0, 10));
-        // console.log('TESTING WEEK AGO:', moment().subtract(7, 'days').toISOString().substring(0, 10))
-
         const start = moment().subtract(7, 'days').toISOString().substring(0, 10);
         const end = moment().toISOString().substring(0, 10);
         
-        let url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${start}&end=${end}`
+        let url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${start}&end=${end}`;
         axios.get(url)
             .then(response => {
                 let btcWeekData = response.data;
@@ -63,10 +56,10 @@ module.exports = {
             })
             .catch(error => {
                 console.log('Error fetching week data:', error);
-            })
+                res.sendStatus(500);
+            });
     },
     getBitcoinCurrentPrice: (req, res) => {
-        // console.log('TESTING CURRENT PRICE');
         let url = `https://api.coindesk.com/v1/bpi/currentprice.json`
         axios.get(url)
             .then(response => {
@@ -75,6 +68,7 @@ module.exports = {
             })
             .catch(error => {
                 console.log('Error fetching BTC Price:', error);
-            })
+                res.sendStatus(500);
+            });
     }
 }

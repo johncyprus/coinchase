@@ -8,7 +8,7 @@ router.get('/year', (req, res) => {
     } else {
         model.getAltcoinYearHistory(req, res);
     }
-})
+});
 
 router.get('/6months', (req, res) => {
     if (req.query.coin === 'btc') {
@@ -16,7 +16,7 @@ router.get('/6months', (req, res) => {
     } else {
         model.getAltcoin6MonthsHistory(req, res);
     }
-})
+});
 
 router.get('/month', (req, res) => {
     if (req.query.coin === 'btc') {
@@ -24,7 +24,7 @@ router.get('/month', (req, res) => {
     } else {
         model.getAltcoinMonthHistory(req, res);
     }
-})
+});
 
 router.get('/week', (req, res) => {
     if (req.query.coin === 'btc') {
@@ -32,7 +32,7 @@ router.get('/week', (req, res) => {
     } else {
         model.getAltcoinWeekHistory(req, res);
     }
-})
+});
 
 router.get('/currentPrice', (req, res) => {
     if (req.query.coin === 'btc') {
@@ -40,14 +40,14 @@ router.get('/currentPrice', (req, res) => {
     } else {
         model.getAltcoinCurrentPrice(req, res);
     }
-})
+});
 
 router.post('/year', (req, res) => {
     model.fetchAndStoreAltCoin(req, res);
-})
+});
 
 router.post('/currentPriceAltcoin', (req, res) => {
     model.fetchAndStoreAltcoinCurrentPrice(req, res);
-})
+});
 
 module.exports = router;

@@ -15,17 +15,16 @@ module.exports = {
             .then(response => {
                 let AltCoinYearData = response.data;
                 AltCoinYearData.forEach(entry => {
-                    // console.log('WHAT IS ENTRY:', entry);
                     if (coin === 'LTC') {
                         LTC.create({
                             date: entry.time_period_start.substring(0, 10),
                             price_close: entry.price_close
-                        })
+                        });
                     } else if (coin === 'ETH') {
                         ETH.create({
                             date: entry.time_period_start.substring(0, 10),
                             price_close: entry.price_close
-                        })
+                        });
                     }
                 });
             })
