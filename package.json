@@ -1,7 +1,7 @@
 {
   "name": "cryptocurrency-charting-tool",
   "version": "1.0.0",
-  "description": "A single page app tracking the historical price data for Bitcoin",
+  "description": "A single page app tracking the historical price data for Bitcoin, Litecoin, and Ethereum",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.0",
+    "acorn": "^7.1.1",
     "axios": "^0.19.2",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
@@ -20,6 +21,7 @@
     "chart.js": "^2.9.3",
     "classnames": "^2.2.6",
     "express": "^4.17.1",
+    "minimist": "^1.2.5",
     "moment": "^2.24.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
